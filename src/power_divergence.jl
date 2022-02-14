@@ -248,7 +248,7 @@ those in `theta0`, or are all equal if `theta0` is not given.
 
 If `x` is a matrix with at least two rows and columns, it is taken as a two-dimensional
 contingency table. Otherwise, `x` and `y` must be vectors of the same length. The contingency
-table is calculated using the `counts` function from the `StatsBase` package. Then the power
+table is calculated using the `freqtable` function from the `FreqTables` package. Then the power
 divergence test is conducted under the null hypothesis that the joint distribution of the
 cell counts in a 2-dimensional contingency table is the product of the row and column
 marginals.
@@ -332,13 +332,13 @@ end
 #convenience functions
 
 #PDT
-function PowerDivergenceTest(x::AbstractVector{T}, y::AbstractVector{T}, levels::Levels{T}; lambda::U=1.0) where {T<:Integer,U<:AbstractFloat}
-    d = counts(x, y, levels)
+function PowerDivergenceTest(x::AbstractVector{T}, y::AbstractVector{T}; lambda::U=1.0) where {T<:Integer,U<:AbstractFloat}
+    d = freqtable(x, y)
     PowerDivergenceTest(d, lambda=lambda)
 end
 
-function PowerDivergenceTest(x::AbstractVector{T}, y::AbstractVector{T}, k::T; lambda::U=1.0) where {T<:Integer,U<:AbstractFloat}
-    d = counts(x, y, k)
+function PowerDivergenceTest(x::AbstractVector{T}, y::AbstractVector{T}; lambda::U=1.0) where {T<:Integer,U<:AbstractFloat}
+    d = freqtable(x, y)
     PowerDivergenceTest(d, lambda=lambda)
 end
 
@@ -359,7 +359,7 @@ those in `theta0`, or are all equal if `theta0` is not given.
 
 If `x` is a matrix with at least two rows and columns, it is taken as a two-dimensional
 contingency table. Otherwise, `x` and `y` must be vectors of the same length. The contingency
-table is calculated using `counts` function from the `StatsBase` package. Then the power
+table is calculated using `freqtable` function from the `FreqTables` package. Then the power
 divergence test is conducted under the null hypothesis that the joint distribution of the
 cell counts in a 2-dimensional contingency table is the product of the row and column
 marginals.
@@ -372,13 +372,13 @@ function ChisqTest(x::AbstractMatrix{T}) where T<:Integer
     PowerDivergenceTest(x, lambda=1.0)
 end
 
-function ChisqTest(x::AbstractVector{T}, y::AbstractVector{T}, levels::Levels{T}) where T<:Integer
-    d = counts(x, y, levels)
+function ChisqTest(x::AbstractVector{T}, y::AbstractVector{T}) where T<:Integer
+    d = freqtable(x, y)
     PowerDivergenceTest(d, lambda=1.0)
 end
 
-function ChisqTest(x::AbstractVector{T}, y::AbstractVector{T}, k::T) where T<:Integer
-    d = counts(x, y, k)
+function ChisqTest(x::AbstractVector{T}, y::AbstractVector{T}) where T<:Integer
+    d = counts(x, y)
     PowerDivergenceTest(d, lambda=1.0)
 end
 
@@ -399,7 +399,7 @@ those in `theta0`, or are all equal if `theta0` is not given.
 
 If `x` is a matrix with at least two rows and columns, it is taken as a two-dimensional
 contingency table. Otherwise, `x` and `y` must be vectors of the same length. The contingency
-table is calculated using `counts` function from the `StatsBase` package. Then the power
+table is calculated using `freqtable` function from the `FreqTables` package. Then the power
 divergence test is conducted under the null hypothesis that the joint distribution of the
 cell counts in a 2-dimensional contingency table is the product of the row and column
 marginals.
@@ -412,13 +412,13 @@ function MultinomialLRTest(x::AbstractMatrix{T}) where T<:Integer
     PowerDivergenceTest(x, lambda=0.0)
 end
 
-function MultinomialLRTest(x::AbstractVector{T}, y::AbstractVector{T}, levels::Levels{T}) where T<:Integer
-    d = counts(x, y, levels)
+function MultinomialLRTest(x::AbstractVector{T}, y::AbstractVector{T}) where T<:Integer
+    d = freqtable(x, y)
     PowerDivergenceTest(d, lambda=0.0)
 end
 
-function MultinomialLRTest(x::AbstractVector{T}, y::AbstractVector{T}, k::T) where T<:Integer
-    d = counts(x, y, k)
+function MultinomialLRTest(x::AbstractVector{T}, y::AbstractVector{T}) where T<:Integer
+    d = freqtable(x, y)
     PowerDivergenceTest(d, lambda=0.0)
 end
 
